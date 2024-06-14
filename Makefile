@@ -1,6 +1,6 @@
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 SRC = src/hash_table.c src/main.c
 OBJS = $(SRC:.c=.o)
 NAME = hash_table

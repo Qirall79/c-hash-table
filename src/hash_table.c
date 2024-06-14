@@ -46,7 +46,7 @@ ht_hash_table *create_ht(void)
 		return (NULL);
 	new->size = 53;
 	new->count = 0;
-	new->items = calloc((size_t)new->size, sizeof(ht_item *));
+	new->items = (ht_item **) calloc((size_t)new->size, sizeof(ht_item *));
 	return (new);
 }
 
@@ -83,6 +83,7 @@ void insert(ht_hash_table *ht, const char *key, const char *value)
 	}
 	ht->items[index] = item;
 	ht->count++;
+	resize(ht);
 }
 
 void update(ht_hash_table *ht, const char *key, const char *new_value)
@@ -146,4 +147,44 @@ void delete(ht_hash_table *ht, const char *key)
 	}
 }
 
+// void resize(ht_hash_table *ht)
+// {
+// 	size_t new_size;
+// 	ht_item **new_items;
+// 	ht_item **old_items;
+// 	float ratio;
 
+// 	ratio = (float) ht->count / ht->size;
+
+// 	if (ratio >= 0.7)
+// 	{
+// 		// double the size
+// 		new_size = ht->size * 2;
+// 	}
+// 	else if (ratio <= 0.1)
+// 	{
+// 		// halven the size
+// 		new_size = ht->size / 2;
+// 	}
+// 	else
+// 		return ;
+
+// 	new_items = (ht_item **) malloc(new_size * sizeof(ht_item *));
+// 	old_items = ht->items;
+// 	ht->items = new_items;
+// 	for (int i = 0; i < ht->size; i++)
+// 	{
+// 		if (old_items[i] && old_items[i] != &HT_DELETED_ITEM)
+// 			insert(ht, old_items[i]->key, old_items[i]->value);
+// 	}
+// 	ht->size = new_size;
+// }
+
+void print_ht(ht_hash_table *ht)
+{
+	for (int i = 0; i < ht->size; i++)
+	{
+		if (ht->items[i] && ht->items[i] != &HT_DELETED_ITEM)
+			printf("%s: %s\n", ht->items[i]->key, ht->items[i]->value);
+	}
+}

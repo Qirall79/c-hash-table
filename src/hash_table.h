@@ -25,4 +25,12 @@ typedef struct {
 ht_hash_table *create_ht(void);
 void delete_hash_table(ht_hash_table *ht);
 
+// operations
+void insert(ht_hash_table *ht, const char *key, const char *value);
+void update(ht_hash_table *ht, const char *key, const char *new_value);
+char *search(ht_hash_table *ht, const char *key);
+void delete(ht_hash_table *ht, const char *key);
+void resize(ht_hash_table *ht);
+void print_ht(ht_hash_table *ht);
+
 #endif
